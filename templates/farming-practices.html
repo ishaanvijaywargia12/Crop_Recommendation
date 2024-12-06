@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farming Practices - CropBuddy</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #45a049;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .search-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 60px;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .crop-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .crop-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .practice-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .practice-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .practice-icon {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .seasonal-info {
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .tips-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .tips-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .tips-list li:before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        #searchInput {
+            border-radius: 30px;
+            padding: 20px 25px;
+            font-size: 1.1em;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #searchInput:focus {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .goog-te-gadget,
+.goog-te-gadget-simple {
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.goog-te-gadget-simple {
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    padding: 4px 12px !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 4px !important;
+    transition: all 0.3s ease !important;
+}
+
+.goog-te-gadget-simple:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: white !important;
+}
+
+/* Hide original Google elements */
+.goog-te-gadget-icon,
+.goog-te-gadget img,
+.goog-te-menu-value img,
+.goog-te-banner-frame,
+.VIpgJd-ZVi9od-l4eHX-hSRGPd,
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+    display: none !important;
+}
+
+/* Custom language selector styling */
+.goog-te-menu-value {
+    color: white !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+/* Language icon styling using Font Awesome */
+.goog-te-menu-value::before {
+    content: '\f0ac' !important;  /* Font Awesome globe icon */
+    font-family: 'Font Awesome 6 Free' !important;
+    font-weight: 900 !important;
+    font-size: 14px !important;
+    color: white !important;
+}
+
+/* Hide separator borders */
+.goog-te-menu-value span {
+    border: none !important;
+    color: white !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Hide extra text */
+.goog-te-gadget {
+    font-size: 0 !important;
+}
+
+.goog-te-menu-value span:not(:first-child) {
+    display: none !important;
+}
+
+.goog-te-menu-value span:first-child {
+    display: inline !important;
+    color: white !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.3px !important;
+    margin-right: 10px !important;
+}
+
+/* Container styling */
+.language-selector {
+    margin-left: 15px;
+    position: relative;
+}
+
+#google_translate_element {
+    margin-top: 3px;
+}
+
+/* Dropdown styling */
+.goog-te-menu-frame {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    border-radius: 6px !important;
+}
+
+.goog-te-menu2 {
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 4px !important;
+}
+
+.goog-te-menu2-item div {
+    font-family: 'Poppins', sans-serif !important;
+    padding: 8px 12px !important;
+    color: #374151 !important;
+    font-size: 14px !important;
+    border-radius: 4px !important;
+}
+
+.goog-te-menu2-item:hover div {
+    background-color: #F3F4F6 !important;
+}
+
+/* Remove top margin from body */
+body {
+    top: 0 !important;
+}
+
+/* Language selector text color fixes */
+.goog-te-gadget-simple {
+    color: white !important;
+}
+
+.goog-te-gadget-simple span {
+    color: white !important;
+}
+
+.goog-te-menu-value span {
+    color: white !important;
+}
+
+/* This specifically targets the text inside the button */
+.goog-te-menu-value span:first-child {
+    color: white !important;
+}
+
+/* This targets any other spans inside the button */
+.goog-te-menu-value span:not(:first-child) {
+    color: white !important;
+}
+
+/* Target the specific text element */
+.VIpgJd-ZVi9od-l4eHX-hSRGPd {
+    color: white !important;
+}
+
+/* Additional specific selector for the text */
+#google_translate_element .goog-te-gadget-simple .VIpgJd-ZVi9od-l4eHX-hSRGPd {
+    color: white !important;
+}
+/* Reset existing styles first */
+.goog-te-menu-value {
+    position: relative !important;
+    display: inline-block !important;
+    padding-right: 20px !important;  /* Add space for arrow */
+}
+
+/* Remove any existing arrows or spans */
+.goog-te-menu-value span:not(:first-child) {
+    display: none !important;
+}
+
+/* Position the arrow */
+.goog-te-menu-value::after {
+    content: '▼' !important;
+    position: absolute !important;
+    right: 5px !important;  /* Adjust this value to control spacing */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: white !important;
+    font-size: 12px !important;
+}
+
+/* Button specific styles */
+.goog-te-gadget-simple {
+    background: #4CAF50 !important;  /* Match your green color */
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+}
+
+/* Mobile styling */
+@media (max-width: 768px) {
+    .language-selector {
+        margin: 10px 0;
+    }
+    
+    #google_translate_element {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .goog-te-menu-value {
+        justify-content: center !important;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="fas fa-leaf"></i> CropBuddy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}#predict">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}#forum">Forum</a>
+                    </li>
+                    <li class="nav-item language-selector">
+                        <div id="google_translate_element"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container text-center">
+                <h1 class="mb-4">Find Best Farming Practices</h1>
+                <p class="lead mb-4">Search from our database of 26 crops to get detailed farming guidelines</p>
+                <div class="input-group mb-3">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search for a crop (e.g., rice, wheat, cotton...)" 
+                           onkeyup="filterCrops()">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crops List Section -->
+    <section class="container" id="cropsContainer">
+        <!-- Crops will be dynamically added here -->
+    </section>
+
+    <script>
+        // Sample crops data with farming practices
+        const crops = [
+    {
+        name: "Rice",
+        icon: "fa-seedling",
+        soilType: "Clay or clay loam soil",
+        climate: "Hot and humid climate",
+        waterRequirement: "High water requirement (1300-1800mm)",
+        bestPractices: [
+            "Proper land leveling for uniform water distribution",
+            "Maintain water depth of 2-5 cm during cultivation",
+            "Regular weeding and pest monitoring",
+            "Proper spacing between plants (20x10 cm)",
+            "Timely fertilizer application (NPK)"
+        ],
+        seasonal: "Best planted during monsoon season",
+        duration: "90-150 days depending on variety"
+    },
+    {
+        name: "Maize",
+        icon: "fa-wheat",
+        soilType: "Well-drained loamy soil",
+        climate: "Warm climate with moderate rainfall",
+        waterRequirement: "Medium water requirement (500-800mm)",
+        bestPractices: [
+            "Deep plowing and fine seedbed preparation",
+            "Proper seed spacing (60x20 cm)",
+            "Regular nitrogen fertilization",
+            "Timely weeding and earthing up",
+            "Monitor for fall armyworm and stem borer"
+        ],
+        seasonal: "Can be grown in both Kharif and Rabi seasons",
+        duration: "90-120 days"
+    },
+    {
+        name: "Chickpea",
+        icon: "fa-seedling",
+        soilType: "Sandy loam to clay loam soils",
+        climate: "Cool and dry climate",
+        waterRequirement: "Low water requirement (300-500mm)",
+        bestPractices: [
+            "Seed treatment with Rhizobium culture",
+            "Maintain proper drainage",
+            "Intercropping with safflower or mustard",
+            "Regular monitoring for pod borer",
+            "Harvest when plants turn yellow"
+        ],
+        seasonal: "Best planted in Rabi season",
+        duration: "90-120 days"
+    },
+    {
+        name: "Kidneybeans",
+        icon: "fa-seedling",
+        soilType: "Well-drained sandy loam",
+        climate: "Moderate temperature (20-25°C)",
+        waterRequirement: "Medium water requirement (400-600mm)",
+        bestPractices: [
+            "Proper seed treatment before sowing",
+            "Row spacing of 45-60 cm",
+            "Regular weeding in early stages",
+            "Support stakes for climbing varieties",
+            "Harvest pods when fully mature"
+        ],
+        seasonal: "Best grown in Kharif season",
+        duration: "90-120 days"
+    },
+    {
+        name: "Pigeonpeas",
+        icon: "fa-seedling",
+        soilType: "Well-drained loamy soils",
+        climate: "Warm and humid climate",
+        waterRequirement: "Low to medium requirement (600-700mm)",
+        bestPractices: [
+            "Deep plowing and good drainage",
+            "Seed treatment with fungicides",
+            "Intercropping with shorter duration crops",
+            "Regular monitoring for pod borers",
+            "Timely pest management"
+        ],
+        seasonal: "Kharif season crop",
+        duration: "150-180 days"
+    },
+    {
+        name: "Mothbeans",
+        icon: "fa-seedling",
+        soilType: "Sandy to sandy loam soils",
+        climate: "Hot and dry climate",
+        waterRequirement: "Low water requirement (300-400mm)",
+        bestPractices: [
+            "Minimal tillage required",
+            "Seed treatment with fungicides",
+            "Line sowing with proper spacing",
+            "Drought resistant variety selection",
+            "Harvest when pods turn yellow"
+        ],
+        seasonal: "Kharif season crop",
+        duration: "75-90 days"
+    },
+    {
+        name: "Mungbean",
+        icon: "fa-seedling",
+        soilType: "Well-drained loamy soil",
+        climate: "Warm climate",
+        waterRequirement: "Low to medium requirement (300-500mm)",
+        bestPractices: [
+            "Seed treatment with Rhizobium culture",
+            "Line sowing with 30-45 cm spacing",
+            "Two weedings at 15 and 30 days",
+            "Proper drainage management",
+            "Regular pest monitoring"
+        ],
+        seasonal: "Can be grown in both Kharif and Rabi",
+        duration: "60-75 days"
+    },
+    {
+        name: "Blackgram",
+        icon: "fa-seedling",
+        soilType: "Well-drained loamy soil",
+        climate: "Warm and humid climate",
+        waterRequirement: "Medium water requirement (400-600mm)",
+        bestPractices: [
+            "Seed inoculation with Rhizobium",
+            "Proper drainage system",
+            "Regular weeding",
+            "Yellow mosaic virus management",
+            "Harvest at 85% pod maturity"
+        ],
+        seasonal: "Kharif season crop",
+        duration: "90-120 days"
+    },
+    {
+        name: "Lentil",
+        icon: "fa-seedling",
+        soilType: "Light loamy to clay loam soils",
+        climate: "Cool climate",
+        waterRequirement: "Low water requirement (300-400mm)",
+        bestPractices: [
+            "Fine seedbed preparation",
+            "Seed treatment with fungicides",
+            "Line sowing with proper spacing",
+            "One or two light irrigations",
+            "Harvest when plants turn yellow"
+        ],
+        seasonal: "Rabi season crop",
+        duration: "120-150 days"
+    },
+    {
+        name: "Pomegranate",
+        icon: "fa-apple-alt",
+        soilType: "Well-drained loamy soil",
+        climate: "Hot and dry climate",
+        waterRequirement: "Medium water requirement (500-800mm)",
+        bestPractices: [
+            "Regular pruning and training",
+            "Proper spacing (5x5 m)",
+            "Bacterial blight management",
+            "Fruit bagging for quality",
+            "Harvest at full maturity"
+        ],
+        seasonal: "Year-round cultivation possible",
+        duration: "Perennial crop, fruiting from 2nd year"
+    },
+    {
+        name: "Banana",
+        icon: "fa-apple-alt",
+        soilType: "Deep, rich loamy soil",
+        climate: "Tropical climate",
+        waterRequirement: "High water requirement (1800-2200mm)",
+        bestPractices: [
+            "Proper sucker selection",
+            "Spacing of 2x2 m or 2.5x2.5 m",
+            "Regular desuckering",
+            "Propping of bearing plants",
+            "Bunch covering for protection"
+        ],
+        seasonal: "Year-round planting possible",
+        duration: "10-12 months for harvest"
+    },
+    {
+        name: "Mango",
+        icon: "fa-apple-alt",
+        soilType: "Well-drained loamy soil",
+        climate: "Tropical and subtropical climate",
+        waterRequirement: "Medium water requirement (700-1000mm)",
+        bestPractices: [
+            "Regular pruning and training",
+            "Spacing of 10x10 m",
+            "Flower regulation",
+            "Fruit fly management",
+            "Harvest at proper maturity"
+        ],
+        seasonal: "Seasonal fruiting",
+        duration: "Perennial, fruiting from 4-5 years"
+    },
+    {
+        name: "Grapes",
+        icon: "fa-apple-alt",
+        soilType: "Deep, well-drained soils",
+        climate: "Mediterranean climate",
+        waterRequirement: "Medium water requirement (500-1200mm)",
+        bestPractices: [
+            "Proper training system",
+            "Regular pruning",
+            "Bunch thinning",
+            "Disease management",
+            "Timely harvesting"
+        ],
+        seasonal: "Season depends on variety",
+        duration: "Perennial, fruiting from 2-3 years"
+    },
+    {
+        name: "Watermelon",
+        icon: "fa-apple-alt",
+        soilType: "Sandy loam soil",
+        climate: "Hot climate",
+        waterRequirement: "High water requirement (800-1000mm)",
+        bestPractices: [
+            "Raised bed cultivation",
+            "Proper spacing (2x1 m)",
+            "Mulching",
+            "Bee keeping for pollination",
+            "Regular irrigation"
+        ],
+        seasonal: "Summer season crop",
+        duration: "75-100 days"
+    },
+    {
+        name: "Muskmelon",
+        icon: "fa-apple-alt",
+        soilType: "Sandy loam soil",
+        climate: "Hot and dry climate",
+        waterRequirement: "Medium water requirement (500-750mm)",
+        bestPractices: [
+            "Raised bed preparation",
+            "Proper spacing (1.5x1 m)",
+            "Mulching application",
+            "Fruit pruning",
+            "Regular pest monitoring"
+        ],
+        seasonal: "Summer season crop",
+        duration: "65-90 days"
+    },
+    {
+        name: "Apple",
+        icon: "fa-apple-alt",
+        soilType: "Deep, well-drained loamy soil",
+        climate: "Cold climate",
+        waterRequirement: "Medium water requirement (1000-1200mm)",
+        bestPractices: [
+            "Proper training and pruning",
+            "Spacing of 5x5 m",
+            "Regular fertilization",
+            "Fruit thinning",
+            "Integrated pest management"
+        ],
+        seasonal: "Deciduous fruit crop",
+        duration: "Perennial, fruiting from 4-5 years"
+    },
+    {
+        name: "Orange",
+        icon: "fa-apple-alt",
+        soilType: "Well-drained loamy soil",
+        climate: "Subtropical climate",
+        waterRequirement: "Medium water requirement (900-1200mm)",
+        bestPractices: [
+            "Regular pruning",
+            "Spacing of 6x6 m",
+            "Micronutrient management",
+            "Citrus canker control",
+            "Harvest at proper maturity"
+        ],
+        seasonal: "Seasonal fruiting",
+        duration: "Perennial, fruiting from 3-4 years"
+    },
+    {
+        name: "Papaya",
+        icon: "fa-apple-alt",
+        soilType: "Well-drained sandy loam",
+        climate: "Tropical climate",
+        waterRequirement: "High water requirement (1200-2000mm)",
+        bestPractices: [
+            "Proper spacing (2x2 m)",
+            "Regular fertilization",
+            "Wind protection",
+            "Virus disease management",
+            "Regular harvesting"
+        ],
+        seasonal: "Year-round cultivation",
+        duration: "Fruiting starts in 8-10 months"
+    },
+    {
+        name: "Coconut",
+        icon: "fa-apple-alt",
+        soilType: "Sandy loam to clay loam",
+        climate: "Tropical climate",
+        waterRequirement: "High water requirement (1500-2000mm)",
+        bestPractices: [
+            "Proper spacing (7.5x7.5 m)",
+            "Regular basin management",
+            "Intercropping in young phase",
+            "Crown cleaning",
+            "Integrated pest management"
+        ],
+        seasonal: "Year-round cultivation",
+        duration: "Perennial, fruiting from 6-7 years"
+    },
+    {
+        name: "Cotton",
+        icon: "fa-seedling",
+        soilType: "Deep black cotton soils",
+        climate: "Warm and humid climate",
+        waterRequirement: "Medium water requirement (700-1300mm)",
+        bestPractices: [
+            "Proper spacing (90x60 cm)",
+            "Regular monitoring for bollworms",
+            "Timely defoliation",
+            "Growth regulator application",
+            "Picking at proper maturity"
+        ],
+        seasonal: "Kharif season crop",
+        duration: "150-180 days"
+    },
+    {
+        name: "Jute",
+        icon: "fa-seedling",
+        soilType: "Well-drained loamy soil",
+        climate: "Hot and humid climate",
+        waterRequirement: "High water requirement (1500-2000mm)",
+        bestPractices: [
+            "Line sowing with proper spacing",
+            "Timely weeding",
+            "Standing water management",
+            "Proper retting process",
+            "Harvest at proper maturity"
+        ],
+        seasonal: "Pre-monsoon to monsoon crop",
+        duration: "120-150 days"
+    },
+    {
+        name: "Coffee",
+        icon: "fa-seedling",
+        soilType: "Well-drained loamy soil",
+        climate: "Cool and humid climate",
+        waterRequirement: "Medium water requirement (1500-2500mm)",
+        bestPractices: [
+            "Proper shade management",
+            "Regular pruning",
+            "Spacing of 2x2 m (Arabica)",
+            "Berry borer management",
+            "Selective picking of ripe berries"
+        ],
+        seasonal: "Perennial crop",
+        duration: "Perennial, fruiting from 3-4 years"
+    }
+];
+
+        function createCropCard(crop) {
+            return `
+                <div class="practice-card">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <i class="fas ${crop.icon} practice-icon"></i>
+                                <h4>${crop.name}</h4>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4">
+                                    <h5><i class="fas fa-soil"></i> Soil Type</h5>
+                                    <p>${crop.soilType}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5><i class="fas fa-cloud-sun"></i> Climate</h5>
+                                    <p>${crop.climate}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5><i class="fas fa-tint"></i> Water Requirement</h5>
+                                    <p>${crop.waterRequirement}</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <h5><i class="fas fa-list-ul"></i> Best Practices</h5>
+                                <ul class="tips-list">
+                                    ${crop.bestPractices.map(practice => `<li>${practice}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="seasonal-info">
+                                <h5><i class="fas fa-calendar-alt"></i> Seasonal Information</h5>
+                                <p><strong>Growing Season:</strong> ${crop.seasonal}</p>
+                                <p><strong>Crop Duration:</strong> ${crop.duration}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterCrops() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const container = document.getElementById('cropsContainer');
+            container.innerHTML = '';
+
+            const filteredCrops = crops.filter(crop => 
+                crop.name.toLowerCase().includes(searchTerm)
+            );
+
+            if (filteredCrops.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search fa-3x mb-3 text-muted"></i>
+                        <h3>No crops found</h3>
+                        <p>Try searching for a different crop name</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredCrops.forEach(crop => {
+                container.innerHTML += createCropCard(crop);
+            });
+        }
+
+        // Initial load of all crops
+        window.onload = function() {
+            filterCrops();
+        };
+    </script>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-leaf"></i> CropBuddy</h5>
+                        <p>Empowering farmers with AI-driven crop predictions for better yields and sustainable farming.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="index.html#about">About</a></li>
+                            <li><a href="index.html#forum">Forum</a></li>
+                            <li><a href="index.html#predict">Predict</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Contact Us</h5>
+                        <p>
+                            <i class="fas fa-envelope"></i> contact@CropBuddy.com<br>
+                            <i class="fas fa-phone"></i> +91 XXXXXXXXXX<br>
+                            <i class="fas fa-map-marker-alt"></i> VIT Vellore, Tamil Nadu, India
+                        </p>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <p>&copy; 2024 CropBuddy. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,ta,te,bn,mr,gu,kn,ml,pa,ur',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+            
+            setTimeout(updateTranslateText, 100);
+        }
+        
+        function updateTranslateText() {
+            const translateElement = document.querySelector('.goog-te-menu-value span:first-child');
+            if (translateElement) {
+                translateElement.textContent = 'Language';
+            }
+        }
+        
+        function removeTopMargin() {
+            document.body.style.top = '0px';
+            document.body.style.position = 'static';
+            
+            const htmlElement = document.documentElement;
+            htmlElement.style.top = '0px';
+            htmlElement.style.position = 'static';
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            removeTopMargin();
+            setInterval(removeTopMargin, 1000);
+        });
+        
+        window.addEventListener('load', function() {
+            updateTranslateText();
+            removeTopMargin();
+        });
+        
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.style.top) {
+                    removeTopMargin();
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['style']
+        });
+        </script>
+        
+        <!-- Add Google Translate Script -->
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
