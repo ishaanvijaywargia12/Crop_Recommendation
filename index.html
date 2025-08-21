@@ -1,176 +1,528 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Crop Recommendation System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-  </head>
-  <style>
-    h1 {
-      color: mediumseagreen;
-      text-align: center;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropBuddy - Crop Prediction System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #45a049;
+        }
 
-    .warning {
-      color: red;
-      font-weight: bold;
-      text-align: center;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
 
-    .card {
-      margin-left: 410px;
-      margin-top: 20px;
-      color: white;
-    }
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 3rem;
+        }
 
-    .container {
-      background: #edf2f7;
-      font-weight: bold;
-      padding-bottom: 10px;
-      border-radius: 15px;
-    }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
 
-    .post-card {
-      margin: 20px;
-    }
-  </style>
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 108px 0 50px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-  <body style="background:#BCBBB8">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">Crop Recommendation</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">About</a>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+        .welcome-message {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .welcome-image {
+            max-width: 400px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Rest of the existing styles remain the same */
+        .section {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .about-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .prediction-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .post-card {
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .comments-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .prediction-result {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .language-selector {
+    margin-left: 15px;
+}
+
+#google_translate_element {
+    margin-top: 3px;
+}
+
+/* Hide Google Translate attribution */
+.goog-te-gadget-simple {
+    background-color: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    padding: 5px 10px !important;
+    border-radius: 4px !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+/* Hide original Google elements */
+.goog-te-gadget-icon,
+.goog-te-gadget img,
+img.goog-te-gadget-icon,
+.goog-te-menu-value img {
+    display: none !important;
+}
+
+/* Add custom language icon */
+.goog-te-gadget-simple:before {
+    content: '\f0ac' !important;  /* Font Awesome globe icon */
+    font-family: 'Font Awesome 6 Free' !important;
+    font-weight: 900 !important;
+    color: white !important;
+    font-size: 14px !important;
+}
+
+.goog-te-gadget-simple span {
+    color: white !important;
+    font-family: inherit !important;
+}
+
+.goog-te-gadget-simple .goog-te-menu-value span {
+    color: white !important;
+    border: none !important;
+    font-family: inherit !important;
+}
+
+/* Remove extra spans */
+.goog-te-menu-value span:not(:first-child) {
+    display: none !important;
+}
+
+.goog-te-banner-frame {
+    display: none !important;
+}
+
+body {
+    top: 0 !important;
+}
+
+.goog-te-menu-frame {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+
+.goog-te-menu2 {
+    border-radius: 4px !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .language-selector {
+        margin: 10px 0;
+    }
+    
+    #google_translate_element {
+        width: 100%;
+    }
+    
+    .goog-te-gadget-simple {
+        width: 100%;
+        text-align: center;
+        justify-content: center !important;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-leaf"></i> CropBuddy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#predict">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#forum">Forum</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="farming-practices.html">Farming-Practices</a>
+                  </li>
+                  <li class="nav-item language-selector">
+                    <div id="google_translate_element"></div>
+                </li>
+                </ul>
+            </div>
         </div>
-      </div>
     </nav>
 
-    <!-- Main content -->
-    <div class="container my-3 mt-3">
-      <h1 class="text-success">Crop Recommendation System <span class="text-success">🌱</span></h1>
-
-      <!-- Crop recommendation form -->
-      <form action="/predict" method="POST">
-        <div class="row">
-          <div class="col-md-4">
-            <label for="Nitrogen">Nitrogen</label>
-            <input type="number" id="Nitrogen" name="Nitrogen" placeholder="Enter Nitrogen" class="form-control" required step="0">
-          </div>
-          <div class="col-md-4">
-            <label for="Phosporus">Phosphorus</label>
-            <input type="number" id="Phosporus" name="Phosporus" placeholder="Enter Phosphorus" class="form-control" required step="0">
-          </div>
-          <div class="col-md-4">
-            <label for="Potassium">Potassium</label>
-            <input type="number" id="Potassium" name="Potassium" placeholder="Enter Potassium" class="form-control" required step="0">
-          </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <h1>Welcome to CropBuddy</h1>
+            <br>
+            <p class="lead">Enhancing Agricultural Decision-Making with Machine Learning </p>
+            <br>
+            <a href="#predict" class="btn btn-primary btn-lg">Get Started</a>
         </div>
+    </section>
 
-        <div class="row mt-4">
+    <!-- Welcome Message Section -->
+    <section class="welcome-message">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="text-success">Welcome to Our Farming Community!</h2>
+                    <br>
+                    <p class="lead">Join thousands of farmers who are already using CropBuddy to optimize their crop yields and make data-driven farming decisions.</p>
+                    <p>Our AI-powered system analyzes soil conditions, weather patterns, and historical data to provide you with the most accurate crop predictions.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="croppic.png" alt="Farming Community" class="welcome-image img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+<section id="about" class="section">
+  <div class="container">
+      <h2 class="section-title">About Our System</h2>
+      <div class="row">
           <div class="col-md-4">
-            <label for="Temperature">Temperature</label>
-            <input type="number" step="0.00000001" id="Temperature" name="Temperature" placeholder="Enter Temperature in °C" class="form-control" required>
-          </div>
-          <div class="col-md-4">
-            <label for="Humidity">Humidity</label>
-            <input type="number" step="0.00000001" id="Humidity" name="Humidity" placeholder="Enter Humidity in %" class="form-control" required>
-          </div>
-          <div class="col-md-4">
-            <label for="pH">pH</label>
-            <input type="number" step="0.00000001" id="Ph" name="Ph" placeholder="Enter pH value" class="form-control" required>
-          </div>
-        </div>
-
-        <div class="row mt-4">
-          <div class="col-md-4">
-            <label for="Rainfall">all</label>
-            <input type="number" step="0.00000001" id="Rainfall" name="Rainfall" placeholder="Enter Rainfall in mm" class="form-control" required>
-          </div>
-        </div>
-
-        <div class="row mt-4">
-          <div class="col-md-12 text-center">
-            <button type="submit" class="btn btn-primary btn-lg">Get Recommendation</button>
-          </div>
-        </div>
-      </form>
-
-      {% if result %}
-        <div class="card bg-dark" style="width: 18rem;">
-          <img src="{{ url_for('static', filename='img.jpg') }}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Recommended Crop for cultivation:</h5>
-            <p class="card-text">{{ result }}</p>
-          </div>
-        </div>
-      {% endif %}
-
-      <!-- Add a new forum post -->
-      <h2 class="mt-5">Add a New Forum Post</h2>
-      <form action="/post" method="POST">
-        <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="title" name="title" placeholder="Enter Post Title" required>
-        </div>
-        <div class="mb-3">
-          <label for="content" class="form-label">Content</label>
-          <textarea class="form-control" id="content" name="content" rows="4" placeholder="Enter Post Content" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit Post</button>
-      </form>
-
-      <hr>
-
-      <!-- Display existing forum posts -->
-      <h2 class="mt-5">Forum Posts</h2>
-
-      {% for post in posts %}
-        <div class="card bg-dark post-card">
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content }}</p>
-            <small>Posted on: {{ post.created_at }}</small>
-
-            <!-- Display Comments -->
-            <h6 class="mt-3">Comments:</h6>
-            <ul>
-              {% for comment in post.comments %}
-                <li>{{ comment.comment }} ({{ comment.created_at }})</li>
-              {% endfor %}
-            </ul>
-
-            <!-- Add comment form -->
-            <form action="/add_comment/{{ post._id }}" method="POST">
-              <div class="mb-3">
-                <label for="comment" class="form-label">Add a Comment</label>
-                <input type="text" class="form-control" id="comment" name="comment" required>
+              <div class="about-card">
+                  <i class="fas fa-robot fa-2x mb-3" style="color: var(--primary-color)"></i>
+                  <h4>AI-Powered</h4>
+                  <p>Using advanced machine learning algorithms to provide accurate crop predictions.</p>
               </div>
-              <button type="submit" class="btn btn-success">Add Comment</button>
-            </form>
           </div>
-        </div>
-      {% endfor %}
-    </div>
+          <div class="col-md-4">
+              <div class="about-card">
+                  <i class="fas fa-chart-line fa-2x mb-3" style="color: var(--primary-color)"></i>
+                  <h4>Data-Driven</h4>
+                  <p>Analyzing soil parameters and environmental conditions for optimal results.</p>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="about-card">
+                  <i class="fas fa-users fa-2x mb-3" style="color: var(--primary-color)"></i>
+                  <h4>Community</h4>
+                  <p>Share valuable experiences, gain insights, and learn from other farmers in our vibrant community forum.</p>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="about-card">
+                  <i class="fas fa-language fa-2x mb-3" style="color: var(--primary-color)"></i>
+                  <h4>Multilingual Support</h4>
+                  <p>Access predictions and farming advice in 10+ regional languages for better accessibility.</p>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="about-card">
+                  <i class="fas fa-book-reader fa-2x mb-3" style="color: var(--primary-color)"></i>
+                  <h4>Best Practices</h4>
+                  <p>Comprehensive and practical guide for 26 different crops with detailed, season-wise cultivation techniques.</p>
+              </div>
+          </div>
+          <div class="col-md-4">
+            <div class="about-card">
+              <i class="fas fa-seedling fa-2x mb-3" style="color: var(--primary-color)"></i>
+              <h4>Crop Analysis</h4>
+              <p>Detailed and insightful analysis of soil requirements and ideal growing conditions for achieving optimal crop yield.</p>
+          </div>
+          </div>
+      </div>
+  </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-  </body>
+        <!-- Prediction Section -->
+        <section id="predict" class="section">
+          <div class="container">
+              <h2 class="section-title">Crop Prediction</h2>
+              <div class="row justify-content-center">
+                  <div class="col-md-12">
+                      <div class="prediction-form">
+                          <form method="POST" action="/predict">
+                              <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                      <label for="Nitrogen">Nitrogen (N)</label>
+                                      <input type="number" step="any" class="form-control" id="Nitrogen" name="Nitrogen" required>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <label for="Phosphorus">Phosphorus (P)</label>
+                                      <input type="number" step="any" class="form-control" id="Phosphorus" name="Phosphorus" required>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <label for="Potassium">Potassium (K)</label>
+                                      <input type="number" step="any" class="form-control" id="Potassium" name="Potassium" required>
+                                  </div>
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                      <label for="Temperature">Temperature (°C)</label>
+                                      <input type="number" step="any" class="form-control" id="Temperature" name="Temperature" required>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                      <label for="Humidity">Humidity (%)</label>
+                                      <input type="number" step="any" class="form-control" id="Humidity" name="Humidity" required>
+                                  </div>
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                      <label for="Ph">pH Value</label>
+                                      <input type="number" step="any" class="form-control" id="Ph" name="Ph" required>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                      <label for="Rainfall">Rainfall (mm)</label>
+                                      <input type="number" step="any" class="form-control" id="Rainfall" name="Rainfall" required>
+                                  </div>
+                              </div>
+                              <div class="text-center">
+                                  <button type="submit" class="btn btn-primary btn-lg">Predict Crop</button>
+                              </div>
+                          </form>
+  
+                          {% if prediction_text %}
+                          <div class="prediction-result">
+                              <i class="fas fa-seedling fa-2x mb-2" style="color: var(--primary-color)"></i>
+                              <h3>{{ prediction_text }}</h3>
+                          </div>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <br>
+
+    <!-- Forum Section -->
+    <section id="forum" class="section" style="background-color: #f9f9f9;">
+        <div class="container">
+            <h2 class="section-title">Community Forum</h2>
+            
+            <!-- Add New Post Form -->
+            <div class="post-card">
+                <h4><i class="fas fa-plus-circle"></i> Create New Post</h4>
+                <form action="/post" method="POST">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter post title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Content</label>
+                        <textarea class="form-control" id="content" name="content" rows="4" placeholder="Share your thoughts..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Post</button>
+                </form>
+            </div>
+
+            <!-- Display Forum Posts -->
+            {% for post in posts %}
+            <div class="post-card">
+                <h4>{{ post.title }}</h4>
+                <p>{{ post.content }}</p>
+                <small class="text-muted"><i class="far fa-clock"></i> Posted on: {{ post.created_at }}</small>
+
+                <div class="comments-section">
+                    <h5><i class="far fa-comments"></i> Comments</h5>
+                    <ul class="list-unstyled">
+                        {% for comment in post.comments %}
+                        <li class="mb-2">
+                            <div class="bg-light p-2 rounded">
+                                {{ comment.comment }}
+                                <small class="text-muted d-block">{{ comment.created_at }}</small>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <form action="/add_comment/{{ post._id }}" method="POST" class="mt-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="comment" name="comment" placeholder="Add a comment..." required>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Comment</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-leaf"></i> CropBuddy</h5>
+                    <p>Empowering farmers with AI-driven crop predictions for better yields and sustainable farming.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#forum">Forum</a></li>
+                        <li><a href="#predict">Predict</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>
+                        <i class="fas fa-envelope"></i> contact@CropBuddy.com<br>
+                        <i class="fas fa-phone"></i> +91 XXXXXXXXXX<br>
+                        <i class="fas fa-map-marker-alt"></i> VIT Vellore, Tamil Nadu, India
+                    </p>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p>&copy; 2024 CropBuddy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,ta,te,bn,mr,gu,kn,ml,pa,ur',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        
+            // Add custom text after initialization
+            setTimeout(updateTranslateText, 100);
+        }
+        
+        // Function to update the translate button text
+        function updateTranslateText() {
+            const translateElement = document.querySelector('.goog-te-menu-value span:first-child');
+            if (translateElement) {
+                translateElement.textContent = 'Language';  // You can change this text
+            }
+        }
+        
+        // Function to remove Google Translate's automatic top margin
+        function removeTopMargin() {
+            const interval = setInterval(() => {
+                const htmlElement = document.querySelector('html');
+                if (htmlElement) {
+                    const style = htmlElement.style;
+                    if (style.position === 'relative' && style.top) {
+                        style.position = 'static';
+                        style.top = '0';
+                        clearInterval(interval);
+                    }
+                }
+            }, 10);
+        }
+        
+        // Call removeTopMargin when page loads and after translation
+        window.addEventListener('load', removeTopMargin);
+        window.addEventListener('click', removeTopMargin);
+        
+        // Call updateTranslateText when page loads
+        window.addEventListener('load', updateTranslateText);
+        </script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>        
+</body>
 </html>

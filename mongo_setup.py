@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 
-client = MongoClient('mongodb://localhost:27017/') 
+client = MongoClient('mongodb+srv://ishaanvijaywargia:YU1WqZT2tVkkCP47@cluster0.twbtwun.mongodb.net/crop_recommendation?retryWrites=true&w=majority&appName=Cluster0') 
 
 db = client['crop_recommendation']
 forum_posts_collection = db['forum_posts']

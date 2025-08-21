@@ -141,202 +141,6 @@
             color: white;
             text-decoration: none;
         }
-
-        .goog-te-gadget,
-.goog-te-gadget-simple {
-    background: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    font-family: 'Poppins', sans-serif !important;
-}
-
-.goog-te-gadget-simple {
-    display: flex !important;
-    align-items: center !important;
-    cursor: pointer !important;
-    padding: 4px 12px !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
-    border-radius: 4px !important;
-    transition: all 0.3s ease !important;
-}
-
-.goog-te-gadget-simple:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border-color: white !important;
-}
-
-/* Hide original Google elements */
-.goog-te-gadget-icon,
-.goog-te-gadget img,
-.goog-te-menu-value img,
-.goog-te-banner-frame,
-.VIpgJd-ZVi9od-l4eHX-hSRGPd,
-.VIpgJd-ZVi9od-ORHb-OEVmcd {
-    display: none !important;
-}
-
-/* Custom language selector styling */
-.goog-te-menu-value {
-    color: white !important;
-    font-family: 'Poppins', sans-serif !important;
-    font-size: 14px !important;
-    text-decoration: none !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-}
-
-/* Language icon styling using Font Awesome */
-.goog-te-menu-value::before {
-    content: '\f0ac' !important;  /* Font Awesome globe icon */
-    font-family: 'Font Awesome 6 Free' !important;
-    font-weight: 900 !important;
-    font-size: 14px !important;
-    color: white !important;
-}
-
-/* Hide separator borders */
-.goog-te-menu-value span {
-    border: none !important;
-    color: white !important;
-    font-family: 'Poppins', sans-serif !important;
-}
-
-/* Hide extra text */
-.goog-te-gadget {
-    font-size: 0 !important;
-}
-
-.goog-te-menu-value span:not(:first-child) {
-    display: none !important;
-}
-
-.goog-te-menu-value span:first-child {
-    display: inline !important;
-    color: white !important;
-    font-family: 'Poppins', sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.3px !important;
-    margin-right: 10px !important;
-}
-
-/* Container styling */
-.language-selector {
-    margin-left: 15px;
-    position: relative;
-}
-
-#google_translate_element {
-    margin-top: 3px;
-}
-
-/* Dropdown styling */
-.goog-te-menu-frame {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    border-radius: 6px !important;
-}
-
-.goog-te-menu2 {
-    border: none !important;
-    border-radius: 6px !important;
-    padding: 4px !important;
-}
-
-.goog-te-menu2-item div {
-    font-family: 'Poppins', sans-serif !important;
-    padding: 8px 12px !important;
-    color: #374151 !important;
-    font-size: 14px !important;
-    border-radius: 4px !important;
-}
-
-.goog-te-menu2-item:hover div {
-    background-color: #F3F4F6 !important;
-}
-
-/* Remove top margin from body */
-body {
-    top: 0 !important;
-}
-
-/* Language selector text color fixes */
-.goog-te-gadget-simple {
-    color: white !important;
-}
-
-.goog-te-gadget-simple span {
-    color: white !important;
-}
-
-.goog-te-menu-value span {
-    color: white !important;
-}
-
-/* This specifically targets the text inside the button */
-.goog-te-menu-value span:first-child {
-    color: white !important;
-}
-
-/* This targets any other spans inside the button */
-.goog-te-menu-value span:not(:first-child) {
-    color: white !important;
-}
-
-/* Target the specific text element */
-.VIpgJd-ZVi9od-l4eHX-hSRGPd {
-    color: white !important;
-}
-
-/* Additional specific selector for the text */
-#google_translate_element .goog-te-gadget-simple .VIpgJd-ZVi9od-l4eHX-hSRGPd {
-    color: white !important;
-}
-/* Reset existing styles first */
-.goog-te-menu-value {
-    position: relative !important;
-    display: inline-block !important;
-    padding-right: 20px !important;  /* Add space for arrow */
-}
-
-/* Remove any existing arrows or spans */
-.goog-te-menu-value span:not(:first-child) {
-    display: none !important;
-}
-
-/* Position the arrow */
-.goog-te-menu-value::after {
-    content: '▼' !important;
-    position: absolute !important;
-    right: 5px !important;  /* Adjust this value to control spacing */
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    color: white !important;
-    font-size: 12px !important;
-}
-
-/* Button specific styles */
-.goog-te-gadget-simple {
-    background: #4CAF50 !important;  /* Match your green color */
-    border-radius: 4px !important;
-    padding: 8px 12px !important;
-}
-
-/* Mobile styling */
-@media (max-width: 768px) {
-    .language-selector {
-        margin: 10px 0;
-    }
-    
-    #google_translate_element {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .goog-te-menu-value {
-        justify-content: center !important;
-    }
-}
     </style>
 </head>
 <body>
@@ -350,19 +154,16 @@ body {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}#about">About</a>
+                        <a class="nav-link" href="index.html#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}#predict">Predict</a>
+                        <a class="nav-link" href="index.html#predict">Predict</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}#forum">Forum</a>
-                    </li>
-                    <li class="nav-item language-selector">
-                        <div id="google_translate_element"></div>
+                        <a class="nav-link" href="index.html#forum">Forum</a>
                     </li>
                 </ul>
             </div>
@@ -851,59 +652,5 @@ body {
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,hi,ta,te,bn,mr,gu,kn,ml,pa,ur',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-            
-            setTimeout(updateTranslateText, 100);
-        }
-        
-        function updateTranslateText() {
-            const translateElement = document.querySelector('.goog-te-menu-value span:first-child');
-            if (translateElement) {
-                translateElement.textContent = 'Language';
-            }
-        }
-        
-        function removeTopMargin() {
-            document.body.style.top = '0px';
-            document.body.style.position = 'static';
-            
-            const htmlElement = document.documentElement;
-            htmlElement.style.top = '0px';
-            htmlElement.style.position = 'static';
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            removeTopMargin();
-            setInterval(removeTopMargin, 1000);
-        });
-        
-        window.addEventListener('load', function() {
-            updateTranslateText();
-            removeTopMargin();
-        });
-        
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.target.style.top) {
-                    removeTopMargin();
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            attributes: true,
-            attributeFilter: ['style']
-        });
-        </script>
-        
-        <!-- Add Google Translate Script -->
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
